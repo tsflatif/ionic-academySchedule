@@ -49,31 +49,80 @@ angular.module('starter', ['ionic'])
         }
       }
     })
+
+    .state('tabs.detail', {
+      url: '/list/:aId',
+      views: {
+        'list-tab' : {
+          templateUrl: 'templates/detail.html',
+          controller: 'ListController'
+        }
+      }
+    })
+
+    .state('tabs.calendar', {
+      url: '/calendar',
+      views: {
+        'calendar-tab' : {
+          templateUrl: 'templates/calendar.html',
+          controller: 'CalendarController'
+        }
+      }
+    })
+
+
+
   $urlRouterProvider.otherwise('/tab/home');
 })
 
-.controller('ListController', ['$scope', '$http', function($scope, $http) {
+.controller('CalendarController', ['$scope', '$http', '$state',
+    function($scope, $http, $state) {
     $http.get('js/data.json').success(function(data) {
-      $scope.artists = data;
+      $scope.calendar = data.calendar;
+
+      $scope.onItemDelete = function(dayIndex, item) {
+        $scope.calendar[dayIndex].schedule.splice($scope.calendar[dayIndex].schedule.indexOf(item), 1);
+      }
+
+      $scope.doRefresh =function() {
+      $http.get('js/data.json').success(function(data) {
+          $scope.calendar = data.calendar;
+          $scope.$broadcast('scroll.refreshComplete');
+        });
+      }
+
+      $scope.toggleStar = function(item) {
+        item.star = !item.star;
+      }
+
+    });
+}])
+
+.controller('ListController', ['$scope', '$http', '$state',
+    function($scope, $http, $state) {
+    $http.get('js/data.json').success(function(data) {
+      $scope.artists = data.artists;
+      $scope.whichartist=$state.params.aId;
+      $scope.data = { showDelete: false, showReorder: false };
 
       $scope.onItemDelete = function(item) {
-        $scope.artists.splice($scope.artists.indexOf(item),1);
-      } 
+        $scope.artists.splice($scope.artists.indexOf(item), 1);
+      }
 
       $scope.doRefresh =function() {
       $http.get('js/data.json').success(function(data) {
           $scope.artists = data;
           $scope.$broadcast('scroll.refreshComplete'); 
         });
-      } 
+      }
 
       $scope.toggleStar = function(item) {
         item.star = !item.star;
       }
 
-      $scope.moveItem = function(item, fromIndex, toIndex){
+      $scope.moveItem = function(item, fromIndex, toIndex) {
         $scope.artists.splice(fromIndex, 1);
-        $scope.artists.splice(toIndex,0, item); 
+        $scope.artists.splice(toIndex, 0, item);
       };
     });
 }]);
