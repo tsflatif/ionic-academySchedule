@@ -46,31 +46,7 @@
             <label class="item item-input">
               <span class="input-label">Last Name</span>
               <input type="text" placeholder="Your Last Name">
-            </label>
-
-            <label class="item item-input">
-              <textarea placeholder="Comments"></textarea>
-            </label>
-
-            <div class="item item-divider">Favorite Social media network</div>
-            
-              <label class="item item-radio">
-                <input type="radio" name="social">
-                <div class="item-content">Facebook</div>
-                <i class="radio-icon ion-gear-facebook"></i>
-              </label>
-
-              <label class="item item-radio">
-                <input type="radio" name="social">
-                <div class="item-content">Twitter</div>
-                <i class="radio-icon ion-social-twitter"></i>
-              </label>
-
-              <label class="item item-radio">
-                <input type="radio" name="social">
-                <div class="item-content">Youtube</div>
-                <i class="radio-icon ion-social-youtube"></i>
-              </label>
+            </label>      
 
               <div class="item item-toggle">
                   <span class="input-label">Toggle</span>
@@ -79,7 +55,24 @@
                     <div class="track"><div class="handle"></div></div>
                   </label>
               </div>
-            </div>
+
+              <div class="item range range-royal">
+                <span class="input-label">Feeling</span>
+                <i class="icon ion-sad-outline"></i>
+                <input type="range" name="feeling" min="0" max="100" val="50">
+                <i class="icon ion-happy-outline"></i>
+              </div>
+
+              <label class="item item-input item-select">
+                <div class="input-label">Favorite Pet</div>
+                <select>
+                  <option>Dogs</option>
+                  <option>Cats</option>
+                  <option>Kitty</option>
+                </select>
+              </label>
+
+          </div>
         </ion-content>
         
 
